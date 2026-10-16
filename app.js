@@ -79,7 +79,7 @@ function showHistory(p) {
   [...events].sort((a,b)=>b.week-a.week||b.day-a.day).forEach(event=>{
     const card=node('article',undefined,'tournament-card'+(event.counted||event.tied?' counted':''));
     const head=node('div',undefined,'tournament-head');head.append(node('strong',`Semana ${event.week} · Dia ${event.day}`),node('span',event.champion?'♛ Campeão':event.date));
-    const score=node('div',undefined,'tournament-score');score.append(node('b',event.complete?`${event.wins}V — ${event.losses}D`:'Resultado incompleto'),node('strong',event.pdl===null?'—':`+${event.pdl} PDL`));
+    const score=node('div',undefined,'tournament-score');score.append(node('b',event.complete?`${event.wins}V — ${event.losses}D`:'Resultado incompleto'),node('strong',event.pdl===null?'—':`${event.pdl>0?'+':''}${event.pdl} PDL`));
     const status=!event.complete?'Aguardando resultado completo':event.participants===null?'Participantes ainda não informados':!event.valid?'Não vale para o ranking · menos de 6 participantes':event.tied?'Melhor PDL empatado · conta uma vez na semana':event.counted?'Melhor resultado · vale para o ranking':'Resultado adicional · não soma PDL na semana';
     card.append(head,score,node('small',status));tournaments.append(card);
   });
